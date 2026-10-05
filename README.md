@@ -2,8 +2,7 @@
 
 Hands-on Azure lab built for AZ-104 (Microsoft Azure Administrator) preparation. It targets the two weakest areas from my first exam attempt, **backup and recovery** and **storage**, with a completed VM disk restore from a Recovery Services vault, blob versioning and soft delete, a lifecycle management policy, a storage firewall, and a SAS token tested before and after expiry.
 
-> Related repos: [VM-RBAC-Config](https://github.com/waynethedon/VM-RBAC-Config) (Project 1) · [VNet-Storage-Config](https://github.com/waynethedon/VNet-Storage-Config) (Project 2) · [Monitoring-Backup-Config](https://github.com/waynethedon/Monitoring-Backup-Config) (Project 3) · [Entra-Identity-Config](https://github.com/waynethedon/Entra-Identity-Config) (Project 4)
-
+> Related repos: [VM-RBAC-Config](https://github.com/dwaynec-cloud/VM-RBAC-Config) (Project 1) · [VNet-Storage-Config](https://github.com/dwaynec-cloud/VNet-Storage-Config) (Project 2) · [Monitoring-Backup-Config](https://github.com/dwaynec-cloud/Monitoring-Backup-Config) (Project 3) · [Entra-Identity-Config](https://github.com/dwaynec-cloud/Entra-Identity-Config) (Project 4) · [AppService-Config](https://github.com/dwaynec-cloud/AppService-Config) (Project 5)
 ---
 
 ## Architecture
@@ -67,7 +66,7 @@ flowchart LR
 
 **`zsh: parse error near '&'` when testing the SAS URL.** A SAS URL contains `&` separators, which zsh interprets as shell syntax. Wrapping the URL in double quotes fixed it.
 
-**Findings from the restored disk.** Its security type is **Trusted launch**, which is why vm1's backup uses the **Enhanced** policy (required for Trusted Launch VMs). Its encryption shows **platform-managed key**: Project 1's Encryption at Host is a VM setting and does not travel with a restored disk. The restore also copied vm1's tags onto the disk, so the tag policy likely wouldn't have blocked this restore even inside `rg-vmrbac-project` (not tested).
+**Findings from the restored disk.** Its security type is **Trusted launch**, which is why vm1's backup uses the **Enhanced** policy (required for Trusted Launch VMs). Its encryption shows **platform-managed key**: Project 1's Encryption at Host is a VM setting and does not travel with a restored disk. The restore also copied vm1's tags onto the disk, The restore also copied vm1's tags onto the disk.
 
 **Storage firewall nearly locked me out.** Selecting "Enabled from selected networks" with no IP rule would have blocked all public access, including my own browser. Adding the client IP before saving avoided that.
 
